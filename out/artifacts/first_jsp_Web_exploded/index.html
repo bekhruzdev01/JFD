@@ -62,3 +62,27 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="editExampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" d id="exampleModalLabel">Kitob saqlash</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/editMenu" method="POST">
+                    <input type="text" placeholder="Kitob nomini kiriting" id="editName" name="editName"/>
+                    <input type="number" placeholder="Kitob narxini kiriting" id="editPrice" name="editPrice"/>
+                    <input type="text" placeholder="Kitob yozuvchisini kiriting" id="editWriter" name="editWriter"/>
+                    <input type="number" placeholder="Kitob chiqqan yilni kiriting" id="editYear" name="editYear"/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Yopish</button>
+                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

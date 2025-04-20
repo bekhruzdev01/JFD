@@ -29,7 +29,7 @@ public class Main extends HttpServlet {
                                 "            <td>" + book.getWriter() + "</td>\n" +
                                 "            <td>" + book.getYear() + "-yil</td>\n" +
                                 "            <td>\n" +
-                                "                <button class=\"btn btn-warning\">Taxrirlash</button>\n" +
+                                "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\">Taxrirlash</button>\n" +
                                 "            </td>\n" +
                                 "            <td>\n" +
                                 "                <button class=\"btn btn-danger\">O'chirish</button>\n" +
@@ -92,6 +92,28 @@ public class Main extends HttpServlet {
                             "        </div>\n" +
                             "    </div>\n" +
                             "</div>" +
+                            "<div class=\"modal fade\" id=\"editExampleModal\" tabindex=\"-1\" aria-labelledby=\"editExampleModalLabel\" aria-hidden=\"true\">\n" +
+                            "    <div class=\"modal-dialog\">\n" +
+                            "        <div class=\"modal-content\">\n" +
+                            "            <div class=\"modal-header\">\n" +
+                            "                <h1 class=\"modal-title fs-5\" id=\"exampleModalLabel\">Kitob saqlash</h1>\n" +
+                            "                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
+                            "            </div>\n" +
+                            "            <div class=\"modal-body\">\n" +
+                            "                <form action=\"/editMenu\" method=\"POST\">\n" +
+                            "                    <input type=\"text\" class=\"form-control mb-2\" placeholder=\"Kitob nomini kiriting\" id=\"editName\" name=\"editName\"/>\n" +
+                            "                    <input type=\"number\" class=\"form-control mb-2\" placeholder=\"Kitob narxini kiriting\" id=\"editPrice\" name=\"editPrice\"/>\n" +
+                            "                    <input type=\"text\" class=\"form-control mb-2\" placeholder=\"Kitob yozuvchisini kiriting\" id=\"editWriter\" name=\"editWriter\"/>\n" +
+                            "                    <input type=\"number\" class=\"form-control mb-2\" placeholder=\"Kitob chiqqan yilni kiriting\" id=\"editYear\" name=\"editYear\"/>\n" +
+                            "                    <div class=\"modal-footer\">\n" +
+                            "                        <button type=\"button\" class=\"btn btn-danger\" data-bs-dismiss=\"modal\">Yopish</button>\n" +
+                            "                        <button type=\"submit\" class=\"btn btn-primary\">Saqlash</button>\n" +
+                            "                    </div>\n" +
+                            "                </form>\n" +
+                            "            </div>\n" +
+                            "        </div>\n" +
+                            "    </div>\n" +
+                            "</div>" +
                             "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js\"></script>\n" +
                             "</body>\n" +
                             "</html>"
@@ -109,5 +131,11 @@ public class Main extends HttpServlet {
         Result result = dbService.addBook(Book.builder().name(name).price(price).writer(writer).year(year).build());
         PrintWriter writers = resp.getWriter();
         resp.sendRedirect("/main");
+
+        String editName = req.getParameter("editName");
+        double editPrice = Double.parseDouble(req.getParameter("editPrice"));
+        String editWriter = req.getParameter("editWriter");
+        int editYear = Integer.parseInt(req.getParameter("editYear"));
+        Result eBresult = dbService.editBook(Book.builder().name(editName).price(editPrice).writer(edi))
     }
 }
