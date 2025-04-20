@@ -132,10 +132,11 @@ public class Main extends HttpServlet {
         PrintWriter writers = resp.getWriter();
         resp.sendRedirect("/main");
 
+        Integer editId = Integer.valueOf(req.getParameter("editId"));
         String editName = req.getParameter("editName");
         double editPrice = Double.parseDouble(req.getParameter("editPrice"));
         String editWriter = req.getParameter("editWriter");
         int editYear = Integer.parseInt(req.getParameter("editYear"));
-        Result eBresult = dbService.editBook(Book.builder().name(editName).price(editPrice).writer(editWriter).year(editYear).build());
+        Result eBresult = dbService.editBook(Book.builder().id(editId).name(editName).price(editPrice).writer(editWriter).year(editYear).build());
     }
 }
