@@ -136,6 +136,6 @@ public class Main extends HttpServlet {
         double editPrice = Double.parseDouble(req.getParameter("editPrice"));
         String editWriter = req.getParameter("editWriter");
         int editYear = Integer.parseInt(req.getParameter("editYear"));
-        Result eBresult = dbService.editBook(Book.builder().name(editName).price(editPrice).writer(edi))
+        Result eBresult = dbService.editBook(Book.builder().name(editName).price(editPrice).writer(editWriter).year(editYear).build());
     }
 }
