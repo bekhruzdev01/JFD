@@ -100,7 +100,8 @@ public class Main extends HttpServlet {
                             "                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>\n" +
                             "            </div>\n" +
                             "            <div class=\"modal-body\">\n" +
-                            "                <form action=\"/editMenu\" method=\"POST\">\n" +
+                            "                <form action=\"/main\" method=\"post\">\n" +
+                            "                    <input type=\"number\" class=\"form-control mb-2\" placeholder=\"Kitob Id kiriting\" id=\"editName\" name=\"editId\"/>\n" +
                             "                    <input type=\"text\" class=\"form-control mb-2\" placeholder=\"Kitob nomini kiriting\" id=\"editName\" name=\"editName\"/>\n" +
                             "                    <input type=\"number\" class=\"form-control mb-2\" placeholder=\"Kitob narxini kiriting\" id=\"editPrice\" name=\"editPrice\"/>\n" +
                             "                    <input type=\"text\" class=\"form-control mb-2\" placeholder=\"Kitob yozuvchisini kiriting\" id=\"editWriter\" name=\"editWriter\"/>\n" +
@@ -123,20 +124,39 @@ public class Main extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        double price = Double.parseDouble(req.getParameter("price"));
-        String writer = req.getParameter("writer");
-        int year = Integer.parseInt(req.getParameter("year"));
         DbService dbService = new DbService();
-        Result result = dbService.addBook(Book.builder().name(name).price(price).writer(writer).year(year).build());
-        PrintWriter writers = resp.getWriter();
-        resp.sendRedirect("/main");
 
-        Integer editId = Integer.valueOf(req.getParameter("editId"));
-        String editName = req.getParameter("editName");
-        double editPrice = Double.parseDouble(req.getParameter("editPrice"));
-        String editWriter = req.getParameter("editWriter");
-        int editYear = Integer.parseInt(req.getParameter("editYear"));
-        Result eBresult = dbService.editBook(Book.builder().id(editId).name(editName).price(editPrice).writer(editWriter).year(editYear).build());
+        // Agar "editId" kelgan bo‘lsa, taxrirlash bo‘lsin
+        if (req.getParameter("editId") != null && !req.getParameter("editId").isEmpty()) {
+            int editId = Integer.parseInt(req.getParameter("editId"));
+            String editName = req.getParameter("editName");
+            double editPrice = Double.parseDouble(req.getParameter("editPrice"));
+            String editWriter = req.getParameter("editWriter");
+            int editYear = Integer.parseInt(req.getParameter("editYear"));
+
+            dbService.editBook(Book.builder()
+                    .id(editId)
+                    .name(editName)
+                    .price(editPrice)
+                    .writer(editWriter)
+                    .year(editYear)
+                    .build());
+        } else {
+            // Aks holda, yangi kitob qo‘shilsin
+            String name = req.getParameter("name");
+            double price = Double.parseDouble(req.getParameter("price"));
+            String writer = req.getParameter("writer");
+            int year = Integer.parseInt(req.getParameter("year"));
+
+            dbService.addBook(Book.builder()
+                    .name(name)
+                    .price(price)
+                    .writer(writer)
+                    .year(year)
+                    .build());
+        }
+
+        resp.sendRedirect("/main");
     }
+
 }

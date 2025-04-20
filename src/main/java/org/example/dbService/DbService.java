@@ -69,8 +69,8 @@ public class DbService {
         callableStatement.registerOutParameter(7, Types.BOOLEAN);
         callableStatement.execute();
         return Result.builder()
-                .message(callableStatement.getString(5))
-                .success(callableStatement.getBoolean(6))
+                .message(callableStatement.getString(6))
+                .success(callableStatement.getBoolean(7))
                 .build();
     }
 }
