@@ -184,4 +184,9 @@ public class Main extends HttpServlet {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID noto‘g‘ri");
         }
     }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPut(req, resp);
+    }
 }
