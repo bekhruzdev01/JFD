@@ -32,7 +32,7 @@ public class Main extends HttpServlet {
                                 "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\">Taxrirlash</button>\n" +
                                 "            </td>\n" +
                                 "            <td>\n" +
-                                "                <button class=\"btn btn-danger\">O'chirish</button>\n" +
+                                "                <button class=\"btn btn-danger\" onClick="+ book.getId() +">O'chirish</button>\n" +
                                 "            </td>\n" +
                                 "        </tr>\n"
                 );
@@ -159,4 +159,8 @@ public class Main extends HttpServlet {
         resp.sendRedirect("/main");
     }
 
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.
+    }
 }
