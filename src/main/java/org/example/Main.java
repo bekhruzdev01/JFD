@@ -116,6 +116,7 @@ public class Main extends HttpServlet {
                             "    </div>\n" +
                             "</div>" +
                             "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js\"></script>\n" +
+                            "script src\"../script.js\"></script>\n" +
                             "</body>\n" +
                             "</html>"
             );
@@ -126,7 +127,6 @@ public class Main extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DbService dbService = new DbService();
 
-        // Agar "editId" kelgan bo‘lsa, taxrirlash bo‘lsin
         if (req.getParameter("editId") != null && !req.getParameter("editId").isEmpty()) {
             int editId = Integer.parseInt(req.getParameter("editId"));
             String editName = req.getParameter("editName");
