@@ -159,8 +159,29 @@ public class Main extends HttpServlet {
         resp.sendRedirect("/main");
     }
 
+    @SneakyThrows
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp){
+        DbService dbService = new DbService();
+
+        String pathInfo = req.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID kerak");
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(pathInfo.substring(1));
+
+            boolean deleted = dbService.deleteBook(id).isSuccess();
+
+            if (deleted) {
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204
+            } else {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Kitob topilmadi");
+            }
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID noto‘g‘ri");
+        }
     }
 }

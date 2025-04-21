@@ -73,5 +73,17 @@ public class DbService {
                 .success(callableStatement.getBoolean(7))
                 .build();
     }
+
+    public Result deleteBook(Integer id) throws SQLException {
+        PreparedStatement preparedStatement = getConnection().prepareStatement("delete from book where id = ?");
+        preparedStatement.setInt(1, id);
+        preparedStatement.execute();
+
+        return Result.builder()
+                .message("O'chirildi")
+                .success(true)
+                .build();
+    }
+
 }
 
