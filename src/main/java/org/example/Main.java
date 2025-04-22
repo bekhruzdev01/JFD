@@ -32,7 +32,7 @@ public class Main extends HttpServlet {
                                 "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\">Taxrirlash</button>\n" +
                                 "            </td>\n" +
                                 "            <td>\n" +
-                                "                <button class=\"btn btn-danger\" onClick="+ book.getId() +">O'chirish</button>\n" +
+                                "                <button class=\"btn btn-danger\" onclick=\"deleteBook(" + book.getId() + ")\">O'chirish</button>\n" +
                                 "            </td>\n" +
                                 "        </tr>\n"
                 );
@@ -116,7 +116,21 @@ public class Main extends HttpServlet {
                             "    </div>\n" +
                             "</div>" +
                             "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js\"></script>\n" +
-                            "script src\"../script.js\"></script>\n" +
+                            "<script >" +
+                            "function deleteBook(id){\n" +
+                            "    fetch(`http://localhost:8080/main/${id}`,{\n" +
+                            "        method:'delete'\n" +
+                            "    }).then(response =>{\n" +
+                            "        if (response.ok) {\n" +
+                            "            alert(\"Muvaffaqiyatli o'chirildi\")\n" +
+                            "        }else{\n" +
+                            "            alert(\"Error\")\n" +
+                            "        }\n" +
+                            "    }).catch(error => {\n" +
+                            "        console.error('Serverga ulanishda xatolik:', error);\n" +
+                            "    });\n" +
+                            "}" +
+                            "</script>\n" +
                             "</body>\n" +
                             "</html>"
             );
@@ -156,7 +170,7 @@ public class Main extends HttpServlet {
                     .build());
         }
 
-        resp.sendRedirect("/main");
+        resp.sendRedirect("/");
     }
 
     @SneakyThrows
@@ -165,6 +179,7 @@ public class Main extends HttpServlet {
         DbService dbService = new DbService();
 
         String pathInfo = req.getPathInfo();
+        System.out.println(pathInfo);
         if (pathInfo == null || pathInfo.equals("/")) {
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID kerak");
             return;
@@ -176,7 +191,7 @@ public class Main extends HttpServlet {
             boolean deleted = dbService.deleteBook(id).isSuccess();
 
             if (deleted) {
-                resp.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);// 204
             } else {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Kitob topilmadi");
             }
