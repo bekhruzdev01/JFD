@@ -179,7 +179,7 @@ public class Main extends HttpServlet {
                     .build());
         }
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/main");
     }
 
     @SneakyThrows
