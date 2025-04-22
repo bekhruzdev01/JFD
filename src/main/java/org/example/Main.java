@@ -29,7 +29,8 @@ public class Main extends HttpServlet {
                                 "            <td>" + book.getWriter() + "</td>\n" +
                                 "            <td>" + book.getYear() + "-yil</td>\n" +
                                 "            <td>\n" +
-                                "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\">Taxrirlash</button>\n" +
+                                "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\"" +
+                                "                  onclick=\"fillEditForm(" + book.getId() + ", '" + book.getName() + "', " + book.getPrice() + ", '" + book.getWriter() + "', " + book.getYear() + ")\">Taxrirlash</button>" +
                                 "            </td>\n" +
                                 "            <td>\n" +
                                 "                <button class=\"btn btn-danger\" onclick=\"deleteBook(" + book.getId() + ")\">O'chirish</button>\n" +
@@ -117,6 +118,14 @@ public class Main extends HttpServlet {
                             "</div>" +
                             "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js\"></script>\n" +
                             "<script >" +
+                            "function fillEditForm(id, name, price, writer, year) {\n" +
+                            "        document.getElementsByName(\"editId\")[0].value = id;\n" +
+                            "        document.getElementsByName(\"editName\")[0].value = name;\n" +
+                            "        document.getElementsByName(\"editPrice\")[0].value = price;\n" +
+                            "        document.getElementsByName(\"editWriter\")[0].value = writer;\n" +
+                            "        document.getElementsByName(\"editYear\")[0].value = year;\n" +
+                            "        console.log(document.getElementById(\"editId\").value);\n" +
+                            "    }" +
                             "function deleteBook(id){\n" +
                             "    fetch(`http://localhost:8080/main/${id}`,{\n" +
                             "        method:'delete'\n" +
