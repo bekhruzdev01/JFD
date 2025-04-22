@@ -127,7 +127,7 @@ public class Main extends HttpServlet {
                             "        console.log(document.getElementById(\"editId\").value);\n" +
                             "    }" +
                             "function deleteBook(id){\n" +
-                            "    fetch(`http://localhost:8080/main/${id}`,{\n" +
+                            "    fetch(`http://localhost:8080/${id}`,{\n" +
                             "        method:'delete'\n" +
                             "    }).then(response =>{\n" +
                             "        if (response.ok) {\n" +
@@ -213,4 +213,10 @@ public class Main extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         super.doPut(req, resp);
     }
+
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doOptions(req, resp);
+    }
 }
+
