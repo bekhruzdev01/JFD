@@ -85,5 +85,24 @@ public class DbService {
                 .build();
     }
 
+    public ArrayList<Book> searchBook(String name) throws SQLException {
+        PreparedStatement preparedStatement = getConnection().prepareStatement("select * from book where name = ?");
+        preparedStatement.setString(1, name);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        List<Book> books = new ArrayList<>();
+        while (resultSet.next()) {
+            books.add(Book.builder()
+                    .id(resultSet.getInt("id"))
+                    .name(resultSet.getString("name"))
+                    .price(resultSet.getDouble("price"))
+                    .writer(resultSet.getString("writer"))
+                    .year(resultSet.getInt("year"))
+                    .build());
+        }
+
+        return (ArrayList<Book>) books;
+    }
+
 }
 

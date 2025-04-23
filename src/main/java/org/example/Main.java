@@ -20,24 +20,50 @@ public class Main extends HttpServlet {
         DbService dbService = new DbService();
         StringBuilder str = new StringBuilder();
         int tr = 1;
-        for (Book book : dbService.getBooks()) {
-            str.append(
-                    "        <tr>\n" +
-                            "            <td>" + tr + "</td>\n" +
-                            "            <td>" + book.getName() + "</td>\n" +
-                            "            <td>" + book.getPrice() + "so'm</td>\n" +
-                            "            <td>" + book.getWriter() + "</td>\n" +
-                            "            <td>" + book.getYear() + "-yil</td>\n" +
-                            "            <td>\n" +
-                            "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\"" +
-                            "                  onclick=\"fillEditForm(" + book.getId() + ", '" + book.getName() + "', " + book.getPrice() + ", '" + book.getWriter() + "', " + book.getYear() + ")\">Taxrirlash</button>" +
-                            "            </td>\n" +
-                            "            <td>\n" +
-                            "                <button class=\"btn btn-danger\" onclick=\"deleteBook(" + book.getId() + ")\">O'chirish</button>\n" +
-                            "            </td>\n" +
-                            "        </tr>\n"
-            );
-            tr++;
+        if (req.getParameter("search") != null && !req.getParameter("search").isEmpty()) {
+            String search = req.getParameter("search");
+            if (dbService.searchBook(search).isEmpty()) {
+                for (Book book : dbService.searchBook(search)) {
+                    str.append(
+                            "        <tr>\n" +
+                                    "            <td>" + tr + "</td>\n" +
+                                    "            <td>" + book.getName() + "</td>\n" +
+                                    "            <td>" + book.getPrice() + "so'm</td>\n" +
+                                    "            <td>" + book.getWriter() + "</td>\n" +
+                                    "            <td>" + book.getYear() + "-yil</td>\n" +
+                                    "            <td>\n" +
+                                    "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\"" +
+                                    "                  onclick=\"fillEditForm(" + book.getId() + ", '" + book.getName() + "', " + book.getPrice() + ", '" + book.getWriter() + "', " + book.getYear() + ")\">Taxrirlash</button>" +
+                                    "            </td>\n" +
+                                    "            <td>\n" +
+                                    "                <button class=\"btn btn-danger\" onclick=\"deleteBook(" + book.getId() + ")\">O'chirish</button>\n" +
+                                    "            </td>\n" +
+                                    "        </tr>\n"
+                    );
+                    tr++;
+                }
+            }
+            resp.sendRedirect("/main");
+        } else {
+            for (Book book : dbService.getBooks()) {
+                str.append(
+                        "        <tr>\n" +
+                                "            <td>" + tr + "</td>\n" +
+                                "            <td>" + book.getName() + "</td>\n" +
+                                "            <td>" + book.getPrice() + "so'm</td>\n" +
+                                "            <td>" + book.getWriter() + "</td>\n" +
+                                "            <td>" + book.getYear() + "-yil</td>\n" +
+                                "            <td>\n" +
+                                "                <button class=\"btn btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#editExampleModal\"" +
+                                "                  onclick=\"fillEditForm(" + book.getId() + ", '" + book.getName() + "', " + book.getPrice() + ", '" + book.getWriter() + "', " + book.getYear() + ")\">Taxrirlash</button>" +
+                                "            </td>\n" +
+                                "            <td>\n" +
+                                "                <button class=\"btn btn-danger\" onclick=\"deleteBook(" + book.getId() + ")\">O'chirish</button>\n" +
+                                "            </td>\n" +
+                                "        </tr>\n"
+                );
+                tr++;
+            }
         }
 
         writer.write(
@@ -55,7 +81,7 @@ public class Main extends HttpServlet {
                         "<div class=\"container\">\n" +
                         "    <h1 class=\"text-center text-success\">Kitoblar sahifasi</h1>\n" +
                         "    <button class=\"btn btn-success mt-3 mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">Saqlash</button>\n" +
-                        "    <form method='get' action='/main'>" +
+                        "    <form method=\"get\" action=\"/main\">" +
                         "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(this.value)\" name=\"serach\">" +
                         "</form>" +
                         "    <table class=\"table\">\n" +
@@ -141,6 +167,9 @@ public class Main extends HttpServlet {
                         "    }).catch(error => {\n" +
                         "        console.error('Serverga ulanishda xatolik:', error);\n" +
                         "    });\n" +
+                        "}" +
+                        "function searchBooks(query) {\n" +
+                        "    window.location.href = \"/main?search=\" + encodeURIComponent(query);\n" +
                         "}" +
                         "</script>\n" +
                         "</body>\n" +
