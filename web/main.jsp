@@ -1,3 +1,5 @@
+<%@ page import="org.example.dbService.DbService" %>
+<%@ page import="org.example.model.Book" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,6 +26,11 @@
     </tr>
     </thead>
     <tbody>
+        <% DbService dbService = new DbService();
+            for (Book book : dbService.getBooks()) {
+
+            }
+        %>
 
     </tbody>
 </table>
