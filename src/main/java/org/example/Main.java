@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
 import org.example.dbService.DbService;
 import org.example.model.Book;
-import org.example.model.Result;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,7 +81,7 @@ public class Main extends HttpServlet {
                         "    <h1 class=\"text-center text-success\">Kitoblar sahifasi</h1>\n" +
                         "    <button class=\"btn btn-success mt-3 mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">Saqlash</button>\n" +
                         "    <form method=\"get\" action=\"/main\">" +
-                        "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(event)\" name=\"search\">" +
+                        "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(this.value)\" name=\"search\">" +
                         "</form>" +
                         "    <table class=\"table\">\n" +
                         "        <thead>\n" +
@@ -168,7 +167,7 @@ public class Main extends HttpServlet {
                         "        console.error('Serverga ulanishda xatolik:', error);\n" +
                         "    });\n" +
                         "}" +
-                        "function searchBooks(query) {\n" +
+                        "function searchBooks(value) {\n" +
                         "   if(event.key = \"Enter\"){" +
                         "    window.location.href = \"/main?search=\" + encodeURIComponent(event.target.value);\n" +
                         "}" +
