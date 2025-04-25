@@ -108,6 +108,9 @@
         console.error('Serverga ulanishda xatolik:', error);
     });
 }function searchBooks(value) {
-    if(event.key = "Enter"){    window.location.href = "/main?search=" + encodeURIComponent(event.target.value);
-    }}</script>
+    <%for (Book book : books) {
+        
+    }%>
+}
+</script>
 <jsp:include page="/Footer.jsp" flush="true"/>
