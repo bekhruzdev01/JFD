@@ -17,7 +17,7 @@
         <td colspan="2">Sozlamalar</td>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="tbody">
     <% DbService dbService = new DbService();
         List<Book> books = new ArrayList<>();
         int tr = 0;
@@ -108,9 +108,44 @@
         console.error('Serverga ulanishda xatolik:', error);
     });
 }function searchBooks(value) {
-    <%for (Book book : books) {
-        
-    }%>
+    const books = [];
+
+    <% for (Book book : books) {
+        if (book.getName().equals(
+    %>
+    value
+    <%){%>
+    books.push({
+        id: <%= book.getId() %>,
+        name: "<%= book.getName() %>",
+        price: <%= book.getPrice() %>,
+        writer: "<%= book.getWriter() %>",
+        year: <%= book.getYear() %>
+    });
+    <% }} %>
+
+    const tbody = document.getElementById('tbody');
+    tbody.innerHTML = ""; // oldingi ma'lumotni tozalaymiz
+
+    books.forEach(book => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${book.name}</td>
+                <td>${book.price} so'm</td>
+                <td>${book.writer}</td>
+                <td>${book.year}-yil</td>
+                <td>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editExampleModal"
+                        onclick="fillEditForm(${book.id}, '${book.name}', ${book.price}, '${book.writer}', ${book.year})">
+                        Taxrirlash
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" onclick="deleteBook(${book.id})">O'chirish</button>
+                </td>
+            </tr>
+        `;
+    });
 }
 </script>
 <jsp:include page="/Footer.jsp" flush="true"/>
