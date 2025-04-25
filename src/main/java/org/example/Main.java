@@ -15,7 +15,7 @@ public class Main extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("main.jsp");
+        resp.sendRedirect("Dashboard.jsp");
     }
 
     @SneakyThrows
