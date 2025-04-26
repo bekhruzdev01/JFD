@@ -17,4 +17,16 @@ public class Country extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect("Country.jsp");
     }
+
+    @SneakyThrows
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getParameter("name");
+        DbService dbService = new DbService();
+        Result result = dbService.addCountry(name);
+        resp.sendRedirect("Country.jsp");
+        req.getServletContext().setAttribute("message", result.getMessage());
+        req.getServletContext().setAttribute("success", String.valueOf(result.isSuccess()));
+    }
+
 }
