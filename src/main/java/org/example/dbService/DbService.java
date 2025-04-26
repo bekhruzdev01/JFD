@@ -103,6 +103,15 @@ public class DbService {
 
         return (ArrayList<Book>) books;
     }
+    public Result addCountry(String name) throws SQLException {
+        Connection connection = getConnection();
+        CallableStatement callableStatement = connection.prepareCall("{call add_country(?, ?, ?)}");
+        callableStatement.setString(1, name);
+        callableStatement.registerOutParameter(2, Types.VARCHAR);
+        callableStatement.registerOutParameter(3, Types.BOOLEAN);
+        callableStatement.execute();
+        return Result.builder().message(callableStatement.getString(2)).success(callableStatement.getBoolean(3)).build();
+    }
 
 }
 
