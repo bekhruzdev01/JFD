@@ -28,4 +28,9 @@ public class Country extends HttpServlet {
         req.getServletContext().setAttribute("message", result.getMessage());
         req.getServletContext().setAttribute("success", String.valueOf(result.isSuccess()));
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doDelete(req, resp);
+    }
 }

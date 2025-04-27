@@ -10,7 +10,7 @@
         integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
         crossorigin="anonymous"></script>
 <script>
-    deleteBook(id){
+    deleteCountry(id){
         fetch('http://localhost:8080/country', {method:delete})
             .then()
     }
