@@ -31,6 +31,8 @@ public class Country extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
+        Integer id = Integer.valueOf(req.getPathInfo());
+        DbService dbService = new DbService();
+        dbService.
     }
 }

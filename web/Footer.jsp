@@ -10,9 +10,16 @@
         integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
         crossorigin="anonymous"></script>
 <script>
-    deleteCountry(id){
-        fetch('http://localhost:8080/country', {method:delete})
-            .then()
+    deleteCountry(id) {
+        fetch('http://localhost:8080/country?id=${id}', {method:'delete'})
+            .then(response => {
+                if (response.ok) {
+                    alert('Book deleted successfully!');
+                    location.reload();
+                } else {
+                    alert('Failed to delete book.');
+                }
+            });
     }
 </script>
 </body>
