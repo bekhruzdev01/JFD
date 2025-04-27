@@ -1,6 +1,7 @@
 package org.example.dbService;
 
 import org.example.model.Book;
+import org.example.model.Country;
 import org.example.model.Result;
 
 import java.sql.*;
@@ -113,7 +114,20 @@ public class DbService {
         return Result.builder().message(callableStatement.getString(2)).success(callableStatement.getBoolean(3)).build();
     }
 
-
+    public List<Country> countryList() throws SQLException {
+        Connection connection = getConnection();
+        ResultSet resultSet = connection.prepareStatement("select * from country order by id desc").executeQuery();
+        List<Country> countries = new ArrayList<>();
+        while (resultSet.next()) {
+            countries.add(
+                    Country.builder()
+                            .id(resultSet.getInt("id"))
+                            .name(resultSet.getString("name"))
+                            .build()
+            );
+        }
+        return countries;
+    }
 
 }
 
