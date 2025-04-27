@@ -11,6 +11,8 @@
             "<tr>" +
                     "<td>" + country.getId() + "</td>" +
                     "<td>" + country.getName() + "</td>" +
+                    "<td> " + "<button class=\"btn btn-warning\">Taxrirlash</button>" +"</td>"+
+                    "<td> " + "<button class=\"btn btn-danger\" onclick=\"deleteBook("+country.getId()+")\">Delete</button>" +"</td>"+
                     "</tr>"
     );
   }
