@@ -32,6 +32,16 @@ public class DbService {
         return Result.builder().message(callableStatement.getString(2)).success(callableStatement.getBoolean(3)).build();
     }
 
+    public Result deleteCountry(Integer id) throws SQLException {
+        Connection connection = getConnection();
+        CallableStatement callableStatement = connection.prepareCall("{call delete_country(?,?,?)}");
+        callableStatement.setInt(1, id);
+        callableStatement.registerOutParameter(2, Types.VARCHAR);
+        callableStatement.registerOutParameter(3, Types.BOOLEAN);
+        callableStatement.execute();
+        return Result.builder().message(callableStatement.getString(2)).success(callableStatement.getBoolean(3)).build();
+    }
+
     public List<Country> countryList() throws SQLException {
         Connection connection = getConnection();
         ResultSet resultSet = connection.prepareStatement("select * from country order by id desc").executeQuery();

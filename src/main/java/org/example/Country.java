@@ -29,10 +29,11 @@ public class Country extends HttpServlet {
         req.getServletContext().setAttribute("success", String.valueOf(result.isSuccess()));
     }
 
+    @SneakyThrows
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Integer id = Integer.valueOf(req.getPathInfo());
         DbService dbService = new DbService();
-        dbService.
+        dbService.deleteCountry(id);
     }
 }
