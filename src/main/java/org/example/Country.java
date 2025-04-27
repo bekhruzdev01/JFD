@@ -35,5 +35,6 @@ public class Country extends HttpServlet {
         Integer id = Integer.valueOf(req.getPathInfo());
         DbService dbService = new DbService();
         dbService.deleteCountry(id);
+        resp.sendRedirect("Country.jsp");
     }
 }

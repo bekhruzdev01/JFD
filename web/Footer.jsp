@@ -15,7 +15,6 @@
             .then(response => {
                 if (response.ok) {
                     alert('Book deleted successfully!');
-                    location.reload();
                 } else {
                     alert('Failed to delete book.');
                 }
