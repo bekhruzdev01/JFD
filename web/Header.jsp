@@ -25,6 +25,7 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/9.0.0/mdb.min.css"
             rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
 </head>
 
@@ -87,21 +88,19 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
         <div class="position-sticky">
             <div class="list-group list-group-flush mx-3 mt-4">
-                <%--                <c:forEach items="${sidebar}" var="item">--%>
-                <%--                    <a--%>
-                <%--                            href="http://localhost:8080${item.link}"--%>
-                <%--                            class="list-group-item list-group-item-action py-2 ripple"--%>
-                <%--                            aria-current="true"--%>
-                <%--                    >--%>
-                <%--                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>${item.name}</span>--%>
-                <%--                    </a>--%>
-                <%--                </c:forEach>--%>
                 <a
                         href="http://localhost:8080/"
                         class="list-group-item list-group-item-action py-2 ripple"
                         aria-current="true"
                 >
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Asosiy bo'lim</span>
+                </a>
+                <a
+                        href="http://localhost:8080/country"
+                        class="list-group-item list-group-item-action py-2 ripple"
+                        aria-current="true"
+                >
+                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Davlatlar</span>
                 </a>
             </div>
         </div>
