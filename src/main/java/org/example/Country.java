@@ -28,5 +28,4 @@ public class Country extends HttpServlet {
         req.getServletContext().setAttribute("message", result.getMessage());
         req.getServletContext().setAttribute("success", String.valueOf(result.isSuccess()));
     }
-
 }
