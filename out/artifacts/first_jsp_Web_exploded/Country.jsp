@@ -1,21 +1,26 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="org.example.dbService.DbService" %>
 <%@ page import="org.example.model.Country" %>
+<%@ page import="java.sql.SQLException" %>
 <jsp:include page="Header.jsp"/>
 
 <%
   DbService dbService = new DbService();
   StringBuilder str = new StringBuilder();
-  for (Country country : dbService.countryList()) {
-    str.append(
-            "<tr>" +
-                    "<td>" + country.getId() + "</td>" +
-                    "<td>" + country.getName() + "</td>" +
-                    "<td> " + "<button class=\"btn btn-warning\">Taxrirlash</button>" +"</td>"+
-                    "<td> " + "<button class=\"btn btn-danger\" onclick=\"deleteCountry("+country.getId()+")\">Delete</button>" +"</td>"+
-                    "</tr>"
-    );
-  }
+    try {
+        for (Country country : dbService.countryList()) {
+          str.append(
+                  "<tr>" +
+                          "<td>" + country.getId() + "</td>" +
+                          "<td>" + country.getName() + "</td>" +
+                          "<td> " + "<button class=\"btn btn-warning\" onclick=\"editCountry("+country.getId()+", "+country.getName()+"\">Edit</button>" +"</td>"+
+                          "<td> " + "<button class=\"btn btn-danger\" onclick=\"deleteCountry("+country.getId()+")\">Delete</button>" +"</td>"+
+                          "</tr>"
+          );
+        }
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
 //    pageContext.setAttribute("body", str);
 %>
 

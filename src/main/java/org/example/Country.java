@@ -32,9 +32,25 @@ public class Country extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer id = Integer.valueOf(req.getPathInfo());
-        DbService dbService = new DbService();
-        dbService.deleteCountry(id);
-        resp.sendRedirect("Country.jsp");
+        String idParam = req.getParameter("id");
+
+        if (idParam == null || idParam.trim().isEmpty()) {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+            resp.getWriter().write("ID parameter is missing or empty.");
+            return;
+        }
+
+            Integer id = Integer.valueOf(idParam);
+
+            DbService dbService = new DbService();
+            boolean isDeleted = dbService.deleteCountry(id).isSuccess();
+
+            if (isDeleted) {
+                resp.setStatus(HttpServletResponse.SC_OK); // 200 OK
+                resp.getWriter().write("Country deleted successfully!");
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 Bad Request
+                resp.getWriter().write("Failed to delete country.");
+            }
     }
 }
