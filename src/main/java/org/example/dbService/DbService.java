@@ -56,4 +56,15 @@ public class DbService {
         }
         return countries;
     }
+    public Result updateCountry(Country country) throws SQLException, ClassNotFoundException {
+        Connection connection = getConnection();
+        CallableStatement callableStatement = connection.prepareCall("{call update_country(?, ?, ?, ?)}");
+        callableStatement.setInt(1, country.getId());
+        callableStatement.setString(2, country.getName());
+
+        callableStatement.registerOutParameter(3, Types.VARCHAR);
+        callableStatement.registerOutParameter(4, Types.BOOLEAN);
+        callableStatement.execute();
+        return Result.builder().message(callableStatement.getString(3)).build();
+    }
 }
