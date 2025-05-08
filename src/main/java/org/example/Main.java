@@ -82,7 +82,7 @@ public class Main extends HttpServlet {
                         "    <h1 class=\"text-center text-success\">Kitoblar sahifasi</h1>\n" +
                         "    <button class=\"btn btn-success mt-3 mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">Saqlash</button>\n" +
                         "    <form method=\"get\" action=\"/main\">" +
-                        "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(this.value)\" name=\"search\">" +
+                        "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(event)\" name=\"search\">" +
                         "</form>" +
                         "    <table class=\"table\">\n" +
                         "        <thead>\n" +
@@ -169,7 +169,9 @@ public class Main extends HttpServlet {
                         "    });\n" +
                         "}" +
                         "function searchBooks(query) {\n" +
-                        "    window.location.href = \"/main?search=\" + encodeURIComponent(query);\n" +
+                        "   if(event.key = \"Enter\"){" +
+                        "    window.location.href = \"/main?search=\" + encodeURIComponent(event.target.value);\n" +
+                        "}" +
                         "}" +
                         "</script>\n" +
                         "</body>\n" +
