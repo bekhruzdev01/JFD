@@ -22,7 +22,7 @@ public class Main extends HttpServlet {
         int tr = 1;
         if (req.getParameter("search") != null && !req.getParameter("search").isEmpty()) {
             String search = req.getParameter("search");
-            if (dbService.searchBook(search).isEmpty()) {
+            if (!dbService.searchBook(search).isEmpty()) {
                 for (Book book : dbService.searchBook(search)) {
                     str.append(
                             "        <tr>\n" +
@@ -43,7 +43,7 @@ public class Main extends HttpServlet {
                     tr++;
                 }
             }
-            resp.sendRedirect("/main");
+//            resp.sendRedirect("/main");
         } else {
             for (Book book : dbService.getBooks()) {
                 str.append(
@@ -82,7 +82,7 @@ public class Main extends HttpServlet {
                         "    <h1 class=\"text-center text-success\">Kitoblar sahifasi</h1>\n" +
                         "    <button class=\"btn btn-success mt-3 mb-3\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">Saqlash</button>\n" +
                         "    <form method=\"get\" action=\"/main\">" +
-                        "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(this.value)\" name=\"serach\">" +
+                        "    <input type=\"text\" class=\"form-control mb-3\" placeholder=\"Qidirish...\" onkeyup=\"searchBooks(this.value)\" name=\"search\">" +
                         "</form>" +
                         "    <table class=\"table\">\n" +
                         "        <thead>\n" +
